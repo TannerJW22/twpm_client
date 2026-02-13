@@ -1,0 +1,69 @@
+{
+ // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    /* =========================
+       File Layout
+    ========================== */
+    "rootDir": "./src",
+    "outDir": "./dist",
+    /* =========================
+       Environment Settings
+    ========================== */
+    // See also https://aka.ms/tsconfig/module
+    "module": "commonjs",
+    "target": "es2022",
+    "lib": ["es2022"],
+    "types": ["node"],
+
+    // For nodejs:
+    // "lib": ["esnext"],
+    // "types": ["node"],
+    // and npm install -D @types/node
+
+    /* =========================
+       Node Runtime Interop
+    ========================== */
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+
+    /* =========================
+       Other Outputs
+    ========================== */
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    /* =========================
+       Stricter Typechecking Options
+    ========================== */
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    /* =========================
+       Style Options
+    ========================== */
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    // "noPropertyAccessFromIndexSignature": true,
+
+    /* =========================
+       Module Behavior
+    ========================== */
+    "verbatimModuleSyntax": false,
+    "isolatedModules": false,
+    "moduleDetection": "force",
+    "noUncheckedSideEffectImports": false,
+
+    /* =========================
+       Performance
+    ========================== */
+    "skipLibCheck": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}
