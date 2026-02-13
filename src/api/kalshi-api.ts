@@ -1,0 +1,79 @@
+import {
+  PortfolioApi,
+  EventsApi,
+  MarketApi,
+  ExchangeApi,
+  MilestoneApi,
+  StructuredTargetsApi,
+  MultivariateApi,
+} from "kalshi-typescript";
+
+import { kalshiConfig } from "../config";
+import type {
+  _RawKalshiApi,
+  KalshiApi_GetMarketCandlesParams,
+  KalshiApi_GetTradesParams,
+  KalshiApi_GetMarketCandlesResponse,
+  KalshiApi_GetTradesResponse,
+} from "../types";
+
+// ::: _Unified Raw Kalshi API Instance <-- _Multiple Raw Kalshi Api Instances
+export const rawKalshiApi: _RawKalshiApi = {
+  portfolio: new PortfolioApi(kalshiConfig),
+  events: new EventsApi(kalshiConfig),
+  market: new MarketApi(kalshiConfig),
+  exchange: new ExchangeApi(kalshiConfig),
+  milestone: new MilestoneApi(kalshiConfig),
+  structuredTargets: new StructuredTargetsApi(kalshiConfig),
+  multivariate: new MultivariateApi(kalshiConfig),
+};
+
+// ::: Unified & Filtered Kalshi API Wrapper <-- _Multiple Raw Kalshi API Query Functions
+export const kalshiApi = {
+  // Unified API Wrapper: getMarketCandlesticks()
+  getMarketCandles: async (paramObj: KalshiApi_GetMarketCandlesParams) => {
+    const _res = await rawKalshiApi.market.getMarketCandlesticks(
+      paramObj.seriesTicker,
+      paramObj.marketTicker,
+      paramObj.startUnix,
+      paramObj.endUnix,
+      paramObj.periodInterval,
+      true,
+      paramObj.options || {},
+    );
+
+    const { data: _data, ..._resExData } = _res;
+
+    const res: KalshiApi_GetMarketCandlesResponse = {
+      status: _res.status,
+      statusText: _res.statusText,
+      cursor: "",
+      data: _data.candlesticks,
+      raw: _resExData,
+    };
+    return res;
+  },
+
+  // Unified API Wrapper: getTrades()
+  getTrades: async (paramObj: KalshiApi_GetTradesParams) => {
+    const _res = await rawKalshiApi.market.getTrades(
+      paramObj.limit,
+      paramObj.cursor,
+      paramObj.marketTicker,
+      paramObj.startUnix,
+      paramObj.endUnix,
+      paramObj.options || {},
+    );
+
+    const { data: _data, ..._resExData } = _res;
+
+    const res: KalshiApi_GetTradesResponse = {
+      status: _res.status,
+      statusText: _res.statusText,
+      cursor: _data.cursor,
+      data: _data.trades,
+      raw: _resExData,
+    };
+    return res;
+  },
+};

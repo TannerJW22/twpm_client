@@ -1,5 +1,5 @@
 {
- // Visit https://aka.ms/tsconfig to read more about this file
+  // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
     /* =========================
        File Layout
@@ -64,6 +64,6 @@
     ========================== */
     "skipLibCheck": true
   },
-  "include": ["src"],
+  "include": ["src", "src/types/external/.ts"],
   "exclude": ["node_modules", "dist"]
 }
