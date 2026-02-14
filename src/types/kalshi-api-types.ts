@@ -7,8 +7,8 @@ import type {
   StructuredTargetsApi,
   MultivariateApi,
   GetMarketCandlesticksPeriodIntervalEnum,
-  MarketCandlestick,
-  Trade,
+  MarketCandlestick as KalshiMarketCandlestick,
+  Trade as KalshiTrade,
 } from "kalshi-typescript";
 
 import type { AxiosResponse } from "axios";
@@ -24,8 +24,16 @@ export type _RawKalshiApi = {
   multivariate: MultivariateApi;
 };
 
-// =-=-=- getMarketCandles() <-- getMarketCandlesticks() =-=-=- //
+// ::: Standardized & Filtered Kalshi API Wrapper <-- _Multiple Raw Kalshi API Query Functions
+export type KalshiApi = {
+  getMarketCandles: (
+    paramObj: KalshiApi_GetMarketCandlesParams,
+  ) => KalshiApi_GetMarketCandlesResponse;
 
+  getTrades: (paramObj: KalshiApi_GetTradesParams) => KalshiApi_GetTradesResponse;
+};
+
+// =-=-=- getMarketCandles() <-- getMarketCandlesticks() =-=-=- //
 export type KalshiApi_GetMarketCandlesParams = {
   seriesTicker: string; // Series ticker
   marketTicker: string; //  Market ticker
@@ -36,16 +44,15 @@ export type KalshiApi_GetMarketCandlesParams = {
   options?: object; // Override http request option.
 };
 
-export type KalshiApi_GetMarketCandlesResponse = {
+export type KalshiApi_GetMarketCandlesResponse = Promise<{
   status: number; // HTTP status code
   statusText: string; // HTTP status text
-  cursor: "";
-  data: MarketCandlestick[]; // Array of candlestick data objects
+  cursor: string;
+  data: KalshiMarketCandlestick[]; // Array of candlestick data objects
   raw: Omit<AxiosResponse<any, any, {}>, "data">; // Raw response from Kalshi API w/o res.data
-};
+}>;
 
 // =-=-=- getTrades() <-- getTrades() =-=-=- //
-
 export type KalshiApi_GetTradesParams = {
   limit: number; // Default is 100; Max is 1000
   cursor: string;
@@ -55,10 +62,10 @@ export type KalshiApi_GetTradesParams = {
   options?: object; // Override http request option.
 };
 
-export type KalshiApi_GetTradesResponse = {
+export type KalshiApi_GetTradesResponse = Promise<{
   status: number;
   statusText: string;
   cursor: string;
-  data: Trade[];
+  data: KalshiTrade[];
   raw: Omit<AxiosResponse<any, any, {}>, "data">; // Raw response from Kalshi API w/o res.data
-};
+}>;

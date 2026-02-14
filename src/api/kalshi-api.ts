@@ -9,13 +9,7 @@ import {
 } from "kalshi-typescript";
 
 import { kalshiConfig } from "../config";
-import type {
-  _RawKalshiApi,
-  KalshiApi_GetMarketCandlesParams,
-  KalshiApi_GetTradesParams,
-  KalshiApi_GetMarketCandlesResponse,
-  KalshiApi_GetTradesResponse,
-} from "../types";
+import type { _RawKalshiApi, KalshiApi } from "../types";
 
 // ::: _Unified Raw Kalshi API Instance <-- _Multiple Raw Kalshi Api Instances
 export const rawKalshiApi: _RawKalshiApi = {
@@ -28,10 +22,10 @@ export const rawKalshiApi: _RawKalshiApi = {
   multivariate: new MultivariateApi(kalshiConfig),
 };
 
-// ::: Unified & Filtered Kalshi API Wrapper <-- _Multiple Raw Kalshi API Query Functions
-export const kalshiApi = {
-  // Unified API Wrapper: getMarketCandlesticks()
-  getMarketCandles: async (paramObj: KalshiApi_GetMarketCandlesParams) => {
+// ::: Standardized & Filtered Kalshi API Wrapper <-- _Multiple Raw Kalshi API Query Functions
+export const kalshiApi: KalshiApi = {
+  // Standardized API Wrapper: getMarketCandlesticks()
+  getMarketCandles: async (paramObj) => {
     const _res = await rawKalshiApi.market.getMarketCandlesticks(
       paramObj.seriesTicker,
       paramObj.marketTicker,
@@ -44,7 +38,7 @@ export const kalshiApi = {
 
     const { data: _data, ..._resExData } = _res;
 
-    const res: KalshiApi_GetMarketCandlesResponse = {
+    const res = {
       status: _res.status,
       statusText: _res.statusText,
       cursor: "",
@@ -54,8 +48,8 @@ export const kalshiApi = {
     return res;
   },
 
-  // Unified API Wrapper: getTrades()
-  getTrades: async (paramObj: KalshiApi_GetTradesParams) => {
+  // Standardized API Wrapper: getTrades()
+  getTrades: async (paramObj) => {
     const _res = await rawKalshiApi.market.getTrades(
       paramObj.limit,
       paramObj.cursor,
@@ -67,7 +61,7 @@ export const kalshiApi = {
 
     const { data: _data, ..._resExData } = _res;
 
-    const res: KalshiApi_GetTradesResponse = {
+    const res = {
       status: _res.status,
       statusText: _res.statusText,
       cursor: _data.cursor,
