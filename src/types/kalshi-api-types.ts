@@ -35,6 +35,7 @@ export type KalshiApi = {
 
 // =-=-=- getMarketCandles() <-- getMarketCandlesticks() =-=-=- //
 export type KalshiApi_GetMarketCandlesParams = {
+  _type?: "KalshiApi_GetMarketCandlesParams";
   seriesTicker: string; // Series ticker
   marketTicker: string; //  Market ticker
   startUnix: number; // Start Unix Timestamp (inclusive)
@@ -45,6 +46,7 @@ export type KalshiApi_GetMarketCandlesParams = {
 };
 
 export type KalshiApi_GetMarketCandlesResponse = Promise<{
+  _type: "KalshiApi_GetMarketCandlesResponse";
   status: number; // HTTP status code
   statusText: string; // HTTP status text
   cursor: string;
@@ -54,6 +56,7 @@ export type KalshiApi_GetMarketCandlesResponse = Promise<{
 
 // =-=-=- getTrades() <-- getTrades() =-=-=- //
 export type KalshiApi_GetTradesParams = {
+  _type?: "KalshiApi_GetTradesParams";
   limit: number; // Default is 100; Max is 1000
   cursor: string;
   marketTicker: string;
@@ -63,6 +66,7 @@ export type KalshiApi_GetTradesParams = {
 };
 
 export type KalshiApi_GetTradesResponse = Promise<{
+  _type: "KalshiApi_GetTradesResponse";
   status: number;
   statusText: string;
   cursor: string;

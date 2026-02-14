@@ -5,11 +5,14 @@ export type CoinDeskApi = {
   getMarketCandles: (
     paramObj: CoinDeskApi_GetMarketCandlesParams,
   ) => CoinDeskApi_GetMarketCandlesResponse;
+
+  toUrlEndpoint: (paramObj: CoinDeskApi_ToUrlEndpointParams) => string;
 };
 
 // =-=-=- getMarketCandles() <-- Standardized API Wrapper: {GET} Spot >> Historical OHLCV+ =-=-=- //
 // (Docs: https://developers.coindesk.com/documentation/data-api/spot_v1_historical_minutes)
 export type CoinDeskApi_GetMarketCandlesParams = {
+  _type?: "CoinDeskApi_GetMarketCandlesParams";
   periodInterval: "minutes" | "hours" | "days";
   exchange: string;
   instrumentID: string;
@@ -18,6 +21,7 @@ export type CoinDeskApi_GetMarketCandlesParams = {
 };
 
 export type CoinDeskApi_GetMarketCandlesResponse = Promise<{
+  _type: "CoinDeskApi_GetMarketCandlesResponse";
   status: number; // HTTP status code
   statusText: string; // HTTP status text
   cursor: string;
@@ -48,3 +52,5 @@ export type CoinDeskMarketCandlestick = {
   VOLUME_UNKNOWN: number;
   QUOTE_VOLUME_UNKNOWN: number;
 };
+
+export type CoinDeskApi_ToUrlEndpointParams = CoinDeskApi_GetMarketCandlesParams; // make into union as you add more

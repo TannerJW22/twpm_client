@@ -1,15 +1,18 @@
 import axios from "axios";
 import type { CoinDeskApi } from "../types";
+import { toUrlEndpoint } from "../config";
 
+// ::: Standardized API Wrapper: {GET} Spot >> Historical OHLCV+
 export const coinDeskApi: CoinDeskApi = {
-  // Standardized API Wrapper: {GET} Spot >> Historical OHLCV+
   // (Docs: https://developers.coindesk.com/documentation/data-api/spot_v1_historical_minutes)
   getMarketCandles: async (paramObj) => {
-    const url = `https://data-api.coindesk.com/spot/v1/historical/${paramObj.periodInterval}?market=${paramObj.exchange}&limit=${paramObj.limit.toString()}&aggregate=1&fill=true&apply_mapping=true&response_format=JSON&groups=ID,OHLC_TRADE,VOLUME&instrument=${paramObj.instrumentID}&to_ts=${paramObj.endUnix.toString()}`;
+    paramObj._type = "CoinDeskApi_GetMarketCandlesParams";
+    const url = coinDeskApi.toUrlEndpoint(paramObj);
     const _res = await axios.get(url);
     const { data: _data, ..._resExData } = _res;
 
     const res = {
+      _type: "CoinDeskApi_GetMarketCandlesResponse" as const,
       status: _res.status,
       statusText: _res.statusText,
       cursor: "",
@@ -18,6 +21,9 @@ export const coinDeskApi: CoinDeskApi = {
     };
     return res;
   },
+
+  // Helper function that only returns REST API URL endpoints for CoinDesk; declared in ./config
+  toUrlEndpoint: (paramObj) => toUrlEndpoint(paramObj),
 };
 
 // Bitstamp (btcusd)

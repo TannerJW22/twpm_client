@@ -39,6 +39,7 @@ export const kalshiApi: KalshiApi = {
     const { data: _data, ..._resExData } = _res;
 
     const res = {
+      _type: "KalshiApi_GetMarketCandlesResponse" as const,
       status: _res.status,
       statusText: _res.statusText,
       cursor: "",
@@ -62,6 +63,7 @@ export const kalshiApi: KalshiApi = {
     const { data: _data, ..._resExData } = _res;
 
     const res = {
+      _type: "KalshiApi_GetTradesResponse" as const,
       status: _res.status,
       statusText: _res.statusText,
       cursor: _data.cursor,
