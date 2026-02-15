@@ -8,3 +8,5 @@ export const kalshiConfig = new Configuration({
   privateKeyPath: process.env.KALSHI_PRIVATE_KEY_PATH!,
   basePath: process.env.KALSHI_BASE_PATH!,
 });
+
+export const kalshiParadigms = ["kxbtc15m"];

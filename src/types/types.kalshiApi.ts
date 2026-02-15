@@ -13,6 +13,8 @@ import type {
 
 import type { AxiosResponse } from "axios";
 
+import { Paradigm } from "../models/models.paradigm";
+
 // ::: _Unified Raw Kalshi API <-- _Multiple Raw Kalshi Api Instances
 export type _RawKalshiApi = {
   portfolio: PortfolioApi;
@@ -47,6 +49,7 @@ export type KalshiApi_GetMarketCandlesParams = {
 
 export type KalshiApi_GetMarketCandlesResponse = Promise<{
   _type: "KalshiApi_GetMarketCandlesResponse";
+  _pID: VerifiedParadigm | never;
   status: number; // HTTP status code
   statusText: string; // HTTP status text
   cursor: string;
@@ -67,9 +70,13 @@ export type KalshiApi_GetTradesParams = {
 
 export type KalshiApi_GetTradesResponse = Promise<{
   _type: "KalshiApi_GetTradesResponse";
+  _pID: VerifiedParadigm | never;
   status: number;
   statusText: string;
   cursor: string;
   data: KalshiTrade[];
   raw: Omit<AxiosResponse<any, any, {}>, "data">; // Raw response from Kalshi API w/o res.data
 }>;
+
+// =-=-=- Miscellaneous Type Declarations =-=-=- //
+export type VerifiedParadigm = keyof typeof Paradigm;

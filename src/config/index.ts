@@ -1,2 +1,2 @@
-export * from "./kalshi-config";
-export * from "./coindesk-config";
+export * from "./config.kalshi";
+export * from "./config.coindesk";

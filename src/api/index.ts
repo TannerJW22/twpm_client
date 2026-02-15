@@ -1,2 +1,2 @@
-export * from "./kalshi-api";
-export * from "./coindesk-api";
+export * from "./api.kalshi";
+export * from "./api.coindesk";

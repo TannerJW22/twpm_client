@@ -9,6 +9,8 @@ import {
 } from "kalshi-typescript";
 
 import { kalshiConfig } from "../config";
+import { getMIDfromKalshiTicker } from "../util";
+import { Paradigm } from "../models";
 import type { _RawKalshiApi, KalshiApi } from "../types";
 
 // ::: _Unified Raw Kalshi API Instance <-- _Multiple Raw Kalshi Api Instances
@@ -40,6 +42,7 @@ export const kalshiApi: KalshiApi = {
 
     const res = {
       _type: "KalshiApi_GetMarketCandlesResponse" as const,
+      _pID: Paradigm.verify(paramObj.seriesTicker),
       status: _res.status,
       statusText: _res.statusText,
       cursor: "",
@@ -64,6 +67,7 @@ export const kalshiApi: KalshiApi = {
 
     const res = {
       _type: "KalshiApi_GetTradesResponse" as const,
+      _pID: Paradigm.verify(getMIDfromKalshiTicker(_data.trades[0]!.ticker)),
       status: _res.status,
       statusText: _res.statusText,
       cursor: _data.cursor,

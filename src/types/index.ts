@@ -1,3 +1,3 @@
 export { Configuration } from "kalshi-typescript";
-export * from "./kalshi-api-types";
-export * from "./coindesk-api";
+export * from "./types.kalshiApi";
+export * from "./types.coinDeskApi";

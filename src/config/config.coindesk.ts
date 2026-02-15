@@ -15,3 +15,5 @@ export function toUrlEndpoint(paramObj: CoinDeskApi_ToUrlEndpointParams) {
   }
   return urlEndpoint;
 }
+
+export const coindeskParadigms = ["kxbtc15m"];
