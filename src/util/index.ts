@@ -1,8 +1,12 @@
+import { ErrorMgr } from "../errors";
+
 export function getMIDfromKalshiTicker(marketTicker: string): string {
   if (!marketTicker)
-    throw new Error(`getMIDfromKalshiTicker() | Invalid 'marketTicker' argument: ${marketTicker}`);
+    ErrorMgr.throw({
+      errorType: "VALIDATION_ERROR",
+      description: `./util/index.ts | Invalid {marketTicker} in getMIDfromKalshiTicker(): ${marketTicker}`,
+    });
   const hyphenIndex = marketTicker.indexOf("-");
-
   if (hyphenIndex === -1) {
     return marketTicker; // no hyphen found, return entire string
   }

@@ -1,7 +1,8 @@
-import { Twpm } from "./models";
+import { TwpmClient } from "./models";
+import { ErrorMgr } from "./errors";
 
-const { Api } = Twpm;
-Twpm.start();
+const { Api } = TwpmClient;
+TwpmClient.start();
 
 async function main() {
   // :::* Testing for kalshiApi.getMarketCandles()
@@ -37,7 +38,11 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error("Unhandled error in main():", err);
+  ErrorMgr.throw({
+    errorType: "INTERNAL_ERROR",
+    description: "./main.ts | Unknown Error in main()",
+    raw: err,
+  });
 });
 
 /////////////////////////////////////////////////////////////////

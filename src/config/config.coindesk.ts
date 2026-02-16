@@ -1,4 +1,5 @@
 import { CoinDeskApi_ToUrlEndpointParams } from "../types";
+import { ErrorMgr } from "../errors";
 
 export function toUrlEndpoint(paramObj: CoinDeskApi_ToUrlEndpointParams) {
   let urlEndpoint: string;
@@ -9,9 +10,10 @@ export function toUrlEndpoint(paramObj: CoinDeskApi_ToUrlEndpointParams) {
       break;
 
     default:
-      throw new Error(
-        `Invalid paramObj._type detected in .toUrlEndpoint() -> "${typeof paramObj}"`,
-      );
+      ErrorMgr.throw({
+        errorType: "VALIDATION_ERROR",
+        description: `./config/coindesk.ts | Invalid {paramObj._type} type in toUrlEndpoint(): "${typeof paramObj}"`,
+      });
   }
   return urlEndpoint;
 }

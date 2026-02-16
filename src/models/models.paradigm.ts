@@ -1,5 +1,6 @@
 import { _AnyObject, VerifiedParadigm } from "../types";
 import { _kxbtc15m } from "../paradigm";
+import { ErrorMgr } from "../errors";
 
 // --- Abstract base class holding verified paradigms ---
 export abstract class VerifiedParadigmList {
@@ -31,7 +32,10 @@ export class Paradigm extends VerifiedParadigmList {
     if (key in this) {
       return key as VerifiedParadigm;
     }
-    throw new Error(`Paradigm.verify() failed: '${key}' is not a registered Paradigm key.`);
+    ErrorMgr.throw({
+      errorType: "VALIDATION_ERROR",
+      description: `./models/paradigm.ts | Invalid {key} in Paradigm.verify(): '${key}'`,
+    });
   }
 
   // Disables instantiation; pseudo-class only

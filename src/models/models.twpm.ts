@@ -1,6 +1,6 @@
 import { Api, Paradigm } from "../models";
 
-export class Twpm {
+export class TwpmClient {
   public static Api = Api;
   public static Paradigm = Paradigm;
 

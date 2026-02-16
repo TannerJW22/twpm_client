@@ -1,4 +1,5 @@
 import { _coinDeskApi, _kalshiApi } from "../api";
+import { ErrorMgr } from "../errors";
 import { _AnyObject, VerifiedApi, KalshiApi, CoinDeskApi } from "../types";
 
 export abstract class VerifiedApiList {
@@ -33,7 +34,10 @@ export class Api extends VerifiedApiList {
     if (key in this) {
       return key as VerifiedApi;
     }
-    throw new Error(`Api.verify() failed: '${key}' is not a registered API key.`);
+    ErrorMgr.throw({
+      errorType: "VALIDATION_ERROR",
+      description: `./models/api.ts | Invalid {key} in Api.verify(): '${key}'`,
+    });
   }
 
   private constructor() {
