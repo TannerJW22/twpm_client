@@ -1,4 +1,4 @@
-import type { AxiosResponse } from "axios";
+import { AxiosResponse } from ".";
 
 // ::: Standardized & Unified Raw CoinDesk API <-- _Multiple Raw CoinDesk Api REST Endpoints
 export type CoinDeskApi = {

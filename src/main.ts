@@ -1,8 +1,11 @@
-import { coinDeskApi } from "./api";
+import { Twpm } from "./models";
+
+const { Api } = Twpm;
+Twpm.start();
 
 async function main() {
   // :::* Testing for kalshiApi.getMarketCandles()
-  const marketCandles = await coinDeskApi.getMarketCandles({
+  const marketCandles = await Api.coinDesk.getMarketCandles({
     periodInterval: "minutes",
     exchange: "bitstamp",
     instrumentID: "btcusd",

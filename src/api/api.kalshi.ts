@@ -14,7 +14,7 @@ import { Paradigm } from "../models";
 import type { _RawKalshiApi, KalshiApi } from "../types";
 
 // ::: _Unified Raw Kalshi API Instance <-- _Multiple Raw Kalshi Api Instances
-export const rawKalshiApi: _RawKalshiApi = {
+export const _rawKalshiApi: _RawKalshiApi = {
   portfolio: new PortfolioApi(kalshiConfig),
   events: new EventsApi(kalshiConfig),
   market: new MarketApi(kalshiConfig),
@@ -25,10 +25,10 @@ export const rawKalshiApi: _RawKalshiApi = {
 };
 
 // ::: Standardized & Filtered Kalshi API Wrapper <-- _Multiple Raw Kalshi API Query Functions
-export const kalshiApi: KalshiApi = {
+export const _kalshiApi: KalshiApi = {
   // Standardized API Wrapper: getMarketCandlesticks()
   getMarketCandles: async (paramObj) => {
-    const _res = await rawKalshiApi.market.getMarketCandlesticks(
+    const _res = await _rawKalshiApi.market.getMarketCandlesticks(
       paramObj.seriesTicker,
       paramObj.marketTicker,
       paramObj.startUnix,
@@ -42,7 +42,7 @@ export const kalshiApi: KalshiApi = {
 
     const res = {
       _type: "KalshiApi_GetMarketCandlesResponse" as const,
-      _pID: Paradigm.verify(paramObj.seriesTicker),
+      seriesTicker: Paradigm.verify(paramObj.seriesTicker),
       status: _res.status,
       statusText: _res.statusText,
       cursor: "",
@@ -54,7 +54,7 @@ export const kalshiApi: KalshiApi = {
 
   // Standardized API Wrapper: getTrades()
   getTrades: async (paramObj) => {
-    const _res = await rawKalshiApi.market.getTrades(
+    const _res = await _rawKalshiApi.market.getTrades(
       paramObj.limit,
       paramObj.cursor,
       paramObj.marketTicker,
@@ -67,7 +67,7 @@ export const kalshiApi: KalshiApi = {
 
     const res = {
       _type: "KalshiApi_GetTradesResponse" as const,
-      _pID: Paradigm.verify(getMIDfromKalshiTicker(_data.trades[0]!.ticker)),
+      seriesTicker: Paradigm.verify(getMIDfromKalshiTicker(_data.trades[0]!.ticker)),
       status: _res.status,
       statusText: _res.statusText,
       cursor: _data.cursor,

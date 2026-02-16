@@ -1,7 +1,6 @@
-import { Paradigm } from "../models";
+import { Kxbtc15mParadigm } from "../types";
 
-const _kxbtc15m = {
+export const _kxbtc15m: Kxbtc15mParadigm = {
   // methods
+  // attach _pID to all res
 };
-
-Paradigm.new(_kxbtc15m, "kxbtc15m");

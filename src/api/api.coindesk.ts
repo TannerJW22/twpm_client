@@ -3,11 +3,11 @@ import type { CoinDeskApi } from "../types";
 import { toUrlEndpoint } from "../config";
 
 // ::: Standardized API Wrapper: {GET} Spot >> Historical OHLCV+
-export const coinDeskApi: CoinDeskApi = {
+export const _coinDeskApi: CoinDeskApi = {
   // (Docs: https://developers.coindesk.com/documentation/data-api/spot_v1_historical_minutes)
   getMarketCandles: async (paramObj) => {
     paramObj._type = "CoinDeskApi_GetMarketCandlesParams";
-    const url = coinDeskApi.toUrlEndpoint(paramObj);
+    const url = _coinDeskApi.toUrlEndpoint(paramObj);
     const _res = await axios.get(url);
     const { data: _data, ..._resExData } = _res;
 
